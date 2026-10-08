@@ -22,13 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin() {
-    Navigator.pushReplacementNamed(context, '/home');
-  }
 
-  void _handleSkip() {
-    Navigator.pushReplacementNamed(context, '/home');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +48,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 16),
               _buildRegisterLink(),
               const SizedBox(height: 24),
-              _buildDivider(),
-              const SizedBox(height: 24),
-              _buildSkipButton(),
-              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -193,7 +183,10 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       height: 52,
       child: ElevatedButton(
-        onPressed: _handleLogin,
+        onPressed: () {
+          // Handle login logic here
+          Navigator.pushReplacementNamed(context, '/home');
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
@@ -232,39 +225,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildDivider() {
-    return Row(
-      children: [
-        Expanded(child: Divider(color: AppColors.border)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text('atau', style: AppTextStyles.caption),
-        ),
-        Expanded(child: Divider(color: AppColors.border)),
-      ],
-    );
-  }
 
-  Widget _buildSkipButton() {
-    return SizedBox(
-      height: 52,
-      child: OutlinedButton(
-        onPressed: _handleSkip,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.textSecondary,
-          side: BorderSide(color: AppColors.border),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        child: const Text(
-          'Lewati Login',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
+
+
 }

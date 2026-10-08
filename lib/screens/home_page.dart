@@ -1,185 +1,177 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-    required this.counter,
-    required this.onIncrement,
-  });
+import '../models/mahasiswa.dart';
 
-  final int counter;
-  final VoidCallback onIncrement;
+class HomePage extends StatelessWidget {
+  // final Mahasiswa mahasiswa;
+
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<Mahasiswa> daftarMahasiswa = [
+      Mahasiswa(
+        nama: 'Muhammad Hasan Al Bukhori',
+        email: 'hasan@gmail.com',
+        nomorHp: '081234567890',
+        gender: 'Laki-laki',
+        tanggalLahir: DateTime(2005, 5, 10),
+        alamat: 'Jember',
+        username: 'hasanbukhori',
+        password: '123456',
+      ),
+      Mahasiswa(
+        nama: 'Rafi Rafsajani',
+        email: 'rafi@gmail.com',
+        nomorHp: '081234567891',
+        gender: 'Laki-laki',
+        tanggalLahir: DateTime(2005, 3, 20),
+        alamat: 'Lumajang',
+        username: 'rafirafsajani',
+        password: '123456',
+      ),
+      Mahasiswa(
+        nama: 'Abhista YP',
+        email: 'abhista@gmail.com',
+        nomorHp: '081234567892',
+        gender: 'Laki-laki',
+        tanggalLahir: DateTime(2006, 8, 15),
+        alamat: 'Bondowoso',
+        username: 'abhistaYP',
+        password: '123456',
+      ),
+      Mahasiswa(
+        nama: 'Rayhan Riyadhul Jinan',
+        email: 'rayhan@gmail.com',
+        nomorHp: '081234567893',
+        gender: 'Laki-laki',
+        tanggalLahir: DateTime(2005, 11, 10),
+        alamat: 'Banyuwangi',
+        username: 'rayhanriyadhuljinan',
+        password: '123456',
+      ),
+      Mahasiswa(
+        nama: 'Riri',
+        email: 'riri@gmail.com',
+        nomorHp: '081234567894',
+        gender: 'Perempuan',
+        tanggalLahir: DateTime(2006, 1, 1),
+        alamat: 'Probolinggo',
+        username: 'riri',
+        password: '123456',
+      ),
+    ];
+
+    // final mahasiswa = ModalRoute.of(context)!.settings.arguments as Mahasiswa;
+
+    // daftarMahasiswa.add(mahasiswa);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeader(counter),
+              const Text(
+                'Data Mahasiswa',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                'Total mahasiswa: ${daftarMahasiswa.length}',
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+
               const SizedBox(height: 24),
-              _buildStatsRow(),
-              const SizedBox(height: 24),
-              _buildInfoSection(),
+
+              for (Mahasiswa mahasiswa in daftarMahasiswa)
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.grey.shade300),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withValues(alpha: 0.15),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        mahasiswa.nama,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Text(
+                        'Email: ${mahasiswa.email}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Nomor HP: ${mahasiswa.nomorHp}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Jenis Kelamin: ${mahasiswa.gender}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Tanggal Lahir: '
+                        '${mahasiswa.tanggalLahir.day}/'
+                        '${mahasiswa.tanggalLahir.month}/'
+                        '${mahasiswa.tanggalLahir.year}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Alamat: ${mahasiswa.alamat}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Username: ${mahasiswa.username}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'Password: ${mahasiswa.password}',
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(int counter) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1565C0), Color(0xFF1976D2)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF1565C0).withValues(alpha: 0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Selamat Datang',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'PERTAMAKU',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            '$counter',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 48,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatsRow() {
-    return Row(
-      children: [
-        _buildStatCard(Icons.trending_up_rounded, 'Visitors', '1,234'),
-        const SizedBox(width: 12),
-        _buildStatCard(Icons.share_rounded, 'Shared', '567'),
-        const SizedBox(width: 12),
-        _buildStatCard(Icons.notifications_rounded, 'Alerts', '89'),
-      ],
-    );
-  }
-
-  Widget _buildStatCard(IconData icon, String label, String value) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Icon(icon, color: const Color(0xFF1565C0), size: 24),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1565C0),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(fontSize: 12, color: Colors.grey[500]),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInfoSection() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.15),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Info Hari Ini',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1565C0),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _buildInfoItem(Icons.info_rounded, 'Informasi terbaru seputar PERTAMAKU'),
-          const SizedBox(height: 10),
-          _buildInfoItem(Icons.calendar_today_rounded, 'Jadwal kegiatan kelompok'),
-          const SizedBox(height: 10),
-          _buildInfoItem(Icons.people_rounded, 'Daftar anggota kelompok'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoItem(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: const Color(0xFF1565C0)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(text, style: const TextStyle(fontSize: 14)),
-          ),
-        ],
       ),
     );
   }

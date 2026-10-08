@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/screens/gradient_page.dart';
 
 import '../core/theme/app_theme.dart';
+import '../models/mahasiswa.dart';
 import '../screens/home_page.dart';
 import '../screens/login_page.dart';
 import '../screens/register_page.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'PERTAMAKU',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: '/splash',
+      initialRoute: '/login',
       routes: {
         '/splash': (context) => const SplashPage(),
         '/login': (context) => const LoginPage(),
@@ -40,28 +42,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
-
-  void _incrementCounter() {
-    setState(() => _counter++);
-  }
-
-  List<Widget> get _pages => [
-        HomePage(counter: _counter, onIncrement: _incrementCounter),
-        const KelompokPage(),
-        const ProfilePage(),
-      ];
 
   @override
   Widget build(BuildContext context) {
+    // final mahasiswa = ModalRoute.of(context)!.settings.arguments as Mahasiswa;
+
+    final List<Widget> pages = [
+      const HomePage(),
+      const KelompokPage(),
+      const ProfilePage(),
+      const GradientPage(),
+    ];
+
     return Scaffold(
       appBar: AppBar(title: Text(_appBarTitles[_selectedIndex])),
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: IndexedStack(index: _selectedIndex, children: pages),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (int index) {
-          setState(() => _selectedIndex = index);
+          setState(() {
+            _selectedIndex = index;
+          });
         },
         destinations: const [
           NavigationDestination(
@@ -79,17 +81,15 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedIcon: Icon(Icons.person_rounded),
             label: 'Profile',
           ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person_rounded),
+            label: 'Gradient',
+          ),
         ],
       ),
-      floatingActionButton: _selectedIndex == 0
-          ? FloatingActionButton(
-              onPressed: _incrementCounter,
-              tooltip: 'Increment',
-              child: const Icon(Icons.add_rounded),
-            )
-          : null,
     );
   }
 }
 
-const List<String> _appBarTitles = ['Home', 'Kelompok', 'Profile'];
+const List<String> _appBarTitles = ['Home', 'Kelompok', 'Profile', 'Gradient'];
